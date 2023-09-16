@@ -1,0 +1,30 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.6.33829.357
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NKKDotNetCoreHomeWork.MvcApp", "NKKDotNetCoreHomeWork.MvcApp\NKKDotNetCoreHomeWork.MvcApp.csproj", "{CE48B9D6-2339-4983-8461-4D22BBA5DC22}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Document", "Document", "{A7849AE5-7DF3-4E06-9A7B-8A0329AC65B4}"
+	ProjectSection(SolutionItems) = preProject
+		README.md = README.md
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{CE48B9D6-2339-4983-8461-4D22BBA5DC22}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CE48B9D6-2339-4983-8461-4D22BBA5DC22}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CE48B9D6-2339-4983-8461-4D22BBA5DC22}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CE48B9D6-2339-4983-8461-4D22BBA5DC22}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {633304F6-9F24-4EAE-817D-0EB5E6ED1FA9}
+	EndGlobalSection
+EndGlobal

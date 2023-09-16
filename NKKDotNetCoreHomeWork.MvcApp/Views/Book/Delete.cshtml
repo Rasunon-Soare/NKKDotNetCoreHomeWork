@@ -1,0 +1,43 @@
+﻿@model BookModel
+
+<div class="row">
+    <div class="col-sm-6">
+        <div class="card bg-light">
+            <div class="card-header p-3">
+                <p class="fw-bold h4">Are You Sure To Delete This Book From Data?</p>
+            </div>
+            <div class="card-body p-4">
+                <div class="mb-3 row">
+                    <label for="staticEmail" class="col-sm-3 col-form-label fw-bold">Book Title :</label>
+                    <div class="col-sm-7">
+                        <p>@Model.BookTitle</p>
+                    </div>
+                </div>
+                <div class="mb-3 row">
+                    <label for="staticEmail" class="col-sm-3 col-form-label fw-bold">Book Author :</label>
+                    <div class="col-sm-7">
+                        <p>@Model.BookAuthor</p>
+                    </div>
+                </div>
+                <div class="mb-3 row">
+                    <label for="staticEmail" class="col-sm-3 col-form-label fw-bold">Book Category :</label>
+                    <div class="col-sm-7">
+                        <p>@Model.BookCategory</p>
+                    </div>
+                </div>
+                <div class="mb-3 row">
+                    <label for="staticEmail" class="col-sm-3 col-form-label fw-bold">Book Content :</label>
+                    <div class="col-sm-7">
+                        <p>@Model.BookContent</p>
+                    </div>
+                </div>
+            </div>
+            <div class="card-footer p-3">
+                <form action="/book/bookdelete/@Model.BookId">
+                    <a href="/book/index" class="btn btn-secondary btn-sm mx-2"><i class="fa-solid fa-backward-step"></i> Back</a>
+                    <button type="submit" class="btn btn-danger btn-sm"><i class="fa-solid fa-trash-arrow-up"></i> Delete</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,233 @@
+﻿@{
+    List<BookModel> data = ViewBag.Data;
+    int count = 0;
+    int pageNo = ViewBag.PageNo;
+    int pageSize = ViewBag.PageSize;
+    int pageCount = ViewBag.PageCount;
+    var message = TempData["message"] != null ? TempData["message"]?.ToString() : null;
+    bool isSuccess = Convert.ToBoolean(TempData["isSuccess"] != null ? TempData["isSuccess"]?.ToString() : "false");
+}
+
+<div class="mb-2">
+    @if (message != null)
+    {
+        if (isSuccess)
+        {
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <p>@message</p>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        }
+        else
+        {
+            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                <p>@message</p>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        }
+    }
+</div>
+
+<div class="mb-3">
+    <a href="/bookajax/ajaxcreate" class="btn btn-primary btn-sm"><i class="fa-solid fa-plus"></i> Create </a>
+</div>
+
+<table class="table">
+    <thead class="table-light">
+        <tr>
+            <th scope="col">No.</th>
+            <th scope="col">Book Title</th>
+            <th scope="col">Book Author</th>
+            <th scope="col">Book Category</th>
+            <th scope="col">Book Content</th>
+            <th scope="col">Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in data)
+        {
+            count++;
+            <tr>
+                <td>@(((pageNo - 1) * pageSize) + count)</td>
+                <td>@item.BookTitle</td>
+                <td>@item.BookAuthor</td>
+                <td>@item.BookCategory</td>
+                <td>@item.BookContent</td>
+                <td>
+                    <a href="/bookajax/edit/@item.BookId" class="btn btn-outline-info btn-sm"><i class="fa-solid fa-pen-to-square"></i> Edit </a>
+                    <button type="button" class="btn btn-outline-danger btn-sm btnDelete" data-book-id="@item.BookId"><i class="fa-solid fa-trash-arrow-up"></i> Delete</button>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<div class="row">
+    <div class="col-sm-4"></div>
+    <div class="col-sm-4">
+        <nav aria-label="..." class="mb-3">
+            <ul class="pagination">
+                @if (pageNo == 1)
+                {
+                    <li class="page-item disabled">
+                        <a class="page-link" href="#" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+                }
+                else
+                {
+                    <li class="page-item">
+                        <a class="page-link" href="/bookajax/index?pageNo=@(pageNo - 1)&pageSize=@pageSize" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+                }
+                @if (pageCount <= 9)
+                {
+                    for (int i = 1; i <= pageCount; i++)
+                    {
+                        if (i == pageNo)
+                        {
+                            <li class="page-item active" aria-current="page">
+                                <a class="page-link" href="#">@i</a>
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="page-item">
+                                <a class="page-link" href="/bookajax/index?pageNo=@i&pageSize=@pageSize">@i</a>
+                            </li>
+                        }
+                    }
+                }
+                else
+                {
+                    if (pageNo <= 3 || pageNo >= pageCount - 2)
+                    {
+                        for (int i = 1; i <= 4; i++)
+                        {
+                            if (i == pageNo)
+                            {
+                                <li class="page-item active" aria-current="page">
+                                    <a class="page-link" href="#">@i</a>
+                                </li>
+                            }
+                            else
+                            {
+                                <li class="page-item">
+                                    <a class="page-link" href="/bookajax/index?pageNo=@i&pageSize=@pageSize">@i</a>
+                                </li>
+                            }
+                        }
+                        <li class="page-item"><a class="page-link" href="#">...</a></li>
+
+                        for (int i = pageCount - 3; i <= pageCount; i++)
+                        {
+                            if (i == pageNo)
+                            {
+                                <li class="page-item active" aria-current="page">
+                                    <a class="page-link" href="#">@i</a>
+                                </li>
+                            }
+                            else
+                            {
+                                <li class="page-item">
+                                    <a class="page-link" href="/bookajax/index?pageNo=@i&pageSize=@pageSize">@i</a>
+                                </li>
+                            }
+                        }
+                    }
+                    else
+                    {
+                        <li class="page-item"><a class="page-link" href="/bookajax/index?pageNo=1&pageSize=@pageSize">1</a></li>
+                        <li class="page-item"><a class="page-link" href="#">...</a></li>
+                        for (int i = pageNo - 2; i <= pageNo + 2; i++)
+                        {
+                            if (i == pageNo)
+                            {
+                                <li class="page-item active" aria-current="page">
+                                    <a class="page-link" href="#">@i</a>
+                                </li>
+                            }
+                            else
+                            {
+                                <li class="page-item">
+                                    <a class="page-link" href="/bookajax/index?pageNo=@i&pageSize=@pageSize">@i</a>
+                                </li>
+                            }
+                        }
+                        <li class="page-item"><a class="page-link" href="#">...</a></li>
+                        <li class="page-item"><a class="page-link" href="/bookajax/index?pageNo=@pageCount&pageSize=@pageSize">@pageCount</a></li>
+                    }
+                }
+                @if (pageNo == pageCount)
+                {
+                    <li class="page-item disabled">
+                        <a class="page-link" href="#" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                }
+                else
+                {
+                    <li class="page-item">
+                        <a class="page-link" href="/bookajax/index?pageNo=@(pageNo + 1)&pageSize=@pageSize" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                }
+            </ul>
+        </nav>
+    </div>
+    <div class="col-sm-4"></div>
+</div>
+
+@section scripts{
+    <script>
+        $('.btnDelete').click(function () {
+            Swal.fire({
+                title: 'Confirm',
+                text: "Are you sure want to delete this blog?",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+            }).then((result) => {
+                if (!result.isConfirmed) return;
+                const id = $(this).data('book-id');
+                $.ajax({
+                    url: '/bookajax/delete',
+                    type: 'POST',
+                    data: {
+                        id: id
+                    },
+                    success: function (data) {
+                        console.log(data);
+                        if (data.isSuccess) {
+                            Swal.fire({
+                                title: 'Success',
+                                text: data.message,
+                                icon: 'success',
+                                showCancelButton: false,
+                            }).then((result) => {
+                                if (result.isConfirmed) {
+                                    location.href = "/bookajax/index";
+                                }
+                            })
+                        }
+                        else {
+                            Swal.fire({
+                                title: 'Error',
+                                text: data.message,
+                                icon: 'error',
+                                showCancelButton: false,
+                            });
+                            location.href = "/bookajax/index";
+                        }
+                    },
+                });
+            })
+        })
+    </script>
+}

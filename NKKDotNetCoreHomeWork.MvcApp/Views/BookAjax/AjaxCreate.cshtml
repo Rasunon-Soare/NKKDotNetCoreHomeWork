@@ -1,0 +1,79 @@
+﻿<div class="mb-3">
+    <label for="bookTitle" class="form-label fw-bold">Book Title</label>
+    <input type="text" class="form-control form-control-sm border-2 border-dark"
+           id="bookTitle" placeholder="...book title...">
+</div>
+<div class="mb-3">
+    <label for="bookAuthor" class="form-label fw-bold">Book Author</label>
+    <input type="text" class="form-control form-control-sm border-2 border-dark"
+           id="bookAuthor" placeholder="...book author...">
+</div>
+<div class="mb-3">
+    <label for="bookCategory" class="form-label fw-bold">Book Category</label>
+    <input type="text" class="form-control form-control-sm border-2 border-dark"
+           id="bookCategory" placeholder="...book category...">
+</div>
+<div class="mb-3">
+    <label for="bookContent" class="form-label fw-bold">Book Content</label>
+    <textarea class="form-control form-control-sm border-2 border-dark"
+              id="bookContent" rows="3" placeholder="....write some content...."></textarea>
+</div>
+<div class="mb-3">
+    <a href="/bookajax/index" class="btn btn-secondary btn-sm"><i class="fa-solid fa-backward-step"></i> Back</a>
+    <button type="button" id="btnSave" class="btn btn-primary btn-sm"><i class="fa-solid fa-floppy-disk"></i> Save</button>
+</div>
+
+
+@section scripts{
+    <script>
+        $("#btnSave").click(function () {
+            const bookTitle = $('#bookTitle').val();
+            const bookAuthor = $('#bookAuthor').val();
+            const bookCategory = $('#bookCategory').val();
+            const bookContent = $('#bookContent').val();
+
+            console.log({ bookTitle, bookAuthor, bookCategory, bookContent });
+
+            const reqModel = {
+                BookTitle: bookTitle,
+                BookAuthor: bookAuthor,
+                BookCategory: bookCategory,
+                BookContent: bookContent
+            };
+
+            $.ajax({
+                url: '/bookajax/save',
+                type: 'POST',
+                data: {
+                    model: reqModel
+                },
+                success: function (data) {
+                    console.log(data);
+                    if (data.isSuccess) {
+                        Swal.fire({
+                            title: 'Success',
+                            text: data.message,
+                            icon: 'success',
+                            showCancelButton: false,
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                location.href = "/bookajax/index";
+                            }
+                        })
+                    } else {
+                        Swal.fire({
+                            title: 'Error',
+                            text: data.message,
+                            icon: 'error',
+                            showCancelButton: false,
+                        });
+                        location.href = "/bookajax/index";
+                    }
+                },
+                error: function (request, status, error) {
+                    console.log(request.responseText);
+                }
+            });
+        });
+    </script>
+}

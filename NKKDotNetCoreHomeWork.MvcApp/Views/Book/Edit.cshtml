@@ -1,0 +1,27 @@
+﻿@model BookModel
+<form method="post" action="/book/Update/@Model.BookId">
+    <div class="mb-3">
+        <label for="bookTitle" class="form-label fw-bold">Book Title</label>
+        <input type="text" class="form-control form-control-sm border-2 border-dark"
+               id="bookTitle" name="BookTitle" value="@Model.BookTitle" placeholder="...book title...">
+    </div>
+    <div class="mb-3">
+        <label for="bookAuthor" class="form-label fw-bold">Book Author</label>
+        <input type="text" class="form-control form-control-sm border-2 border-dark"
+               id="bookAuthor" name="BookAuthor" value="@Model.BookAuthor" placeholder="...book author...">
+    </div>
+    <div class="mb-3">
+        <label for="bookCategory" class="form-label fw-bold">Book Category</label>
+        <input type="text" class="form-control form-control-sm border-2 border-dark"
+               id="bookCategory" name="BookCategory" value="@Model.BookCategory" placeholder="...book category...">
+    </div>
+    <div class="mb-3">
+        <label for="bookContent" class="form-label fw-bold">Book Content</label>
+        <textarea class="form-control form-control-sm border-2 border-dark"
+                  id="bookContent" name="BookContent" rows="3" placeholder="....write some content....">@Model.BookContent</textarea>
+    </div>
+    <div class="mb-3">
+        <a href="/book/index" class="btn btn-secondary btn-sm"><i class="fa-solid fa-backward-step"></i> Back</a>
+        <button type="submit" class="btn btn-primary btn-sm"><i class="fa-solid fa-floppy-disk"></i> Update</button>
+    </div>
+</form>
