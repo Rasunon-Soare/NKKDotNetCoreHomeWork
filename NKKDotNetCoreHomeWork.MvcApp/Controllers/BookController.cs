@@ -16,16 +16,32 @@ namespace NKKDotNetCoreHomeWork.MvcApp.Controllers
 
         public async Task<IActionResult> Index(int pageNo = 1, int pageSize = 10)
         {
+            //var rowCount = await _context.BookDataModel.CountAsync();
+            //var pageCount = rowCount / pageSize;
+            //if (rowCount % pageSize > 0) pageCount++;
+
+            //List<BookModel> lst = await _context.BookDataModel
+            //    .OrderByDescending(x => x.BookId)
+            //    .Skip((pageNo - 1) * pageSize)
+            //    .Take(pageSize).ToListAsync();
+
+            //ViewBag.Data = lst;
+            //ViewBag.PageCount = pageCount;
+            //ViewBag.PageSize = pageSize;
+            //ViewBag.PageNo = pageNo;
+            //return View();
+
             var rowCount = await _context.BookDataModel.CountAsync();
             var pageCount = rowCount / pageSize;
             if (rowCount % pageSize > 0) pageCount++;
 
-            List<BookModel> lst = await _context.BookDataModel
+            var lst = await _context.BookDataModel
                 .OrderByDescending(x => x.BookId)
                 .Skip((pageNo - 1) * pageSize)
                 .Take(pageSize).ToListAsync();
 
-            ViewBag.Data = lst;
+            List<BookreqModel> result = lst.AsEnumerable().Select(x => x.Change()).ToList();
+            ViewBag.Data = result;
             ViewBag.PageCount = pageCount;
             ViewBag.PageSize = pageSize;
             ViewBag.PageNo = pageNo;
